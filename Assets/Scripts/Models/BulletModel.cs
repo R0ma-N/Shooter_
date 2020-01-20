@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
 
 namespace Shooter
@@ -10,6 +9,16 @@ namespace Shooter
         {
             base.Awake();
             Destroy(gameObject, _timeToDestruct);
+        }
+
+        public void OnCollisionEnter(Collision collision)
+        {
+            if (collision.gameObject.TryGetComponent<IDamageable>(out IDamageable damageable))
+            {
+                damageable.getDamage(_Damage);
+            }
+
+            Destroy(gameObject);
         }
     }
 }

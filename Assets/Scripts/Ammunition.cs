@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
 
 namespace Shooter
@@ -15,19 +14,5 @@ namespace Shooter
             Rigidbody.AddForce(dir);
         }
 
-        public void OnCollisionEnter(Collision collision)
-        {
-            if(collision.gameObject.TryGetComponent<IDamageable>(out IDamageable damageable))
-            {
-                damageable.getDamage(_Damage);
-            }
-            
-            Destroy(gameObject);
-        }
-
-        public void Destroy()
-        {
-            DestroyImmediate(gameObject, true);
-        }
     }
 }

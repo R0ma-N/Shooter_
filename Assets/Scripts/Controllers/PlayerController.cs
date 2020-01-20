@@ -10,7 +10,7 @@ namespace Shooter
         public PlayerController()
         {
             On();
-            _player = GameObject.FindGameObjectWithTag("Player");
+            _player = GameObject.FindGameObjectWithTag(TagManager.PLAYER);
             _action = new UnitMotor(_player.transform);
         }
 

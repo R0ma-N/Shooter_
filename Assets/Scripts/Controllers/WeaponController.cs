@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Shooter
 {
@@ -40,13 +37,15 @@ namespace Shooter
             {
                 _activeWeapon.IsReady = true;
                 _timer.DistTime = 0;
+
                 if(_activeWeapon is Flamethrower)
                 {
-                    Debug.Log("4564654564");
                     _activeWeapon.StopFire();
                 }
             }
 
+            //не понял почему стрельба и перезарядка может быть в WeaponController,
+            //а смена оружия по колесику мыши должна быть обязательно в InputController
             float mv = Input.GetAxis("Mouse ScrollWheel");
             if (mv > 0)
             {
@@ -95,8 +94,6 @@ namespace Shooter
             _index = index;
             _activeWeapon = Inventory.Weapons[_index];
             _activeWeapon.IsVisible(true);
-            Debug.Log(_activeWeapon);
-            Debug.Log(Inventory.Weapons.Length);
         }
 
         private void NewWeapon()

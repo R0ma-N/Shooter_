@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Shooter
 {
@@ -12,13 +10,14 @@ namespace Shooter
         {
             base.Awake();
             Rigidbody.isKinematic = true;
-            Shader.SetGlobalColor(5, Color.black);
+            MeshRenderer.material.SetColor("_Color", Color.white);
         }
 
         public void getDamage(float damage)
         {
             Health -= damage;
-            if(Health <= 0)
+
+            if (Health <= 0)
             {
                 OnDeath();
             }
@@ -27,7 +26,8 @@ namespace Shooter
         public void OnDeath()
         {
             Rigidbody.isKinematic = false;
-            Destroy(gameObject);
+            MeshRenderer.material.SetColor("_Color", Color.black);
+            Destroy(gameObject, 2);
         }
     }
 }

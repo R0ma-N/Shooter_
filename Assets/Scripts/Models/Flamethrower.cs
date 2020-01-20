@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
 
 namespace Shooter
@@ -23,12 +22,17 @@ namespace Shooter
             }
 
             BulletsCount--;
+
+            if (BulletsCount == 1) 
+            { 
+                StopFire();
+                BulletsCount = 0;
+            }
         }
 
         public override void StopFire()
         {
             _fire.Stop();
-            IsReady = true;
         }
     }
 }

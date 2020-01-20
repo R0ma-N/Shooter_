@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
 
 namespace Shooter
@@ -12,7 +11,6 @@ namespace Shooter
         private WeaponController _weaponController;
         private IOnUpdate[] _controllersUpdate;
         private IOnInitialize[] _controllersInit;
-        public static Main Instance { get; private set; }
 
         private void Awake()
         {

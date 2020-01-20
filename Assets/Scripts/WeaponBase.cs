@@ -18,8 +18,7 @@ namespace Shooter
         [HideInInspector] public int ClipsCount;
         [HideInInspector] public int BulletsCount;
 
-        protected Timer Timer = new Timer();
-
+        //подбор нового оружия
         private void OnCollisionEnter(Collision collision)
         {
             if (collision.gameObject.CompareTag(TagManager.PLAYER))
