@@ -6,7 +6,6 @@ namespace Shooter
 {
     public class Main : MonoBehaviour
     {
-        public Inventory _inventory;
         private PlayerController _playerController;
         private InputController _inputController;
         private FlashLightController _flashLightController;
@@ -17,14 +16,12 @@ namespace Shooter
 
         private void Awake()
         {
-            _inventory = new Inventory();
             _playerController = new PlayerController();
             _inputController = new InputController();
             _flashLightController = new FlashLightController();
             _weaponController = new WeaponController();
             
-            _controllersInit = new IOnInitialize[2];
-            //_controllersInit[0] = _inventory;
+            _controllersInit = new IOnInitialize[1];
             _controllersInit[0] = _flashLightController;
             
             _controllersUpdate = new IOnUpdate[4];

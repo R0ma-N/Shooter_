@@ -9,8 +9,7 @@ namespace Shooter
         public bool IsReady = true;
         public int ClipsMaxCount;
         public int BulletsInClip;
-        public delegate void GetWeaponHandler();
-        public static event GetWeaponHandler GotNewWeapon;
+        public static event System.Action GotNewWeapon;
 
         [SerializeField] protected Transform _barrel;
         [SerializeField] protected float _force = 999;
@@ -23,16 +22,17 @@ namespace Shooter
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (collision.gameObject.CompareTag("Player"))
+            if (collision.gameObject.CompareTag(TagManager.PLAYER))
             {
-                gameObject.transform.parent = Camera.main.transform;
+                transform.parent = Camera.main.transform;
                 GotNewWeapon?.Invoke();
-                Transform weaponPosition = GameObject.FindGameObjectWithTag("WeaponPosition").transform;
-                gameObject.transform.position = weaponPosition.position;
-                gameObject.transform.rotation = weaponPosition.rotation;
+                Transform weaponPosition = GameObject.FindGameObjectWithTag(TagManager.WeaponPosition).transform;
+                transform.position = weaponPosition.position;
+                transform.rotation = weaponPosition.rotation;
             }
         }
 
         public abstract void Fire();
+        public abstract void StopFire();
     }
 }

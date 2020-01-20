@@ -15,10 +15,5 @@ namespace Shooter
             Canvas = GetComponentInParent<Canvas>();
             IsBlinked = true;
         }
-
-        private void Update()
-        {
-            Devisions[0].enabled = Canvas.enabled = IsBlinked;
-        }
     }
 }

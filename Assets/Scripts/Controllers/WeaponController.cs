@@ -15,9 +15,14 @@ namespace Shooter
         
         public WeaponController()
         {
-            _activeWeapon = Inventory._weapons[0];
+            _activeWeapon = Inventory.Weapons[0];
             _timer = new Timer();
             WeaponBase.GotNewWeapon += NewWeapon;
+
+            // 1.не понял как можно отписаться от этого события, если оружие можно будет
+            //подобрать в любой момент, т.е. если отписаться, то оружие подобрать будет уже нельзя
+            //
+            // 2.т.к. WeaponBase абстрактный, кроме как через статическое поле к соботию не обратиться
         }
 
         public void OnUpdate()
@@ -35,19 +40,24 @@ namespace Shooter
             {
                 _activeWeapon.IsReady = true;
                 _timer.DistTime = 0;
+                if(_activeWeapon is Flamethrower)
+                {
+                    Debug.Log("4564654564");
+                    _activeWeapon.StopFire();
+                }
             }
 
             float mv = Input.GetAxis("Mouse ScrollWheel");
             if (mv > 0)
             {
                 Debug.Log(_index);
-                if (_index < Inventory._weapons.Count - 1)
+                if (_index < Inventory.Weapons.Length - 1)
                 {
                     ChangeWeapon(_index + 1);
                     return;
                 }
                 
-                if (_index == Inventory._weapons.Count - 1)
+                if (_index == Inventory.Weapons.Length - 1)
                 {
                     ChangeWeapon(0);
                 }
@@ -63,7 +73,7 @@ namespace Shooter
 
                 if (_index == 0)
                 {
-                    ChangeWeapon(Inventory._weapons.Count - 1);
+                    ChangeWeapon(Inventory.Weapons.Length - 1);
                 }
             }
 
@@ -75,7 +85,7 @@ namespace Shooter
                 _activeWeapon.BulletsCount = _activeWeapon.BulletsInClip;
             }
 
-            UIInterface.BulletsCount.TxtBullets.text = $"{_activeWeapon.ClipsCount}/{_activeWeapon.BulletsCount}  {Inventory._weapons.Count}";
+            UIInterface.BulletsCount.TxtBullets.text = $"{_activeWeapon.ClipsCount}/{_activeWeapon.BulletsCount}  {Inventory.Weapons.Length}";
         }
 
         private void ChangeWeapon(int index)
@@ -83,16 +93,16 @@ namespace Shooter
 
             if (_activeWeapon) _activeWeapon.IsVisible(false);
             _index = index;
-            _activeWeapon = Inventory._weapons[_index];
+            _activeWeapon = Inventory.Weapons[_index];
             _activeWeapon.IsVisible(true);
             Debug.Log(_activeWeapon);
-            Debug.Log(Inventory._weapons.Count);
+            Debug.Log(Inventory.Weapons.Length);
         }
 
         private void NewWeapon()
         {
             Inventory = new Inventory(true);
-            ChangeWeapon(Inventory._weapons.Count - 1);
+            ChangeWeapon(Inventory.Weapons.Length - 1);
             _activeWeapon.ClipsCount = _activeWeapon.ClipsMaxCount;
             _activeWeapon.BulletsCount = _activeWeapon.BulletsInClip;
         }

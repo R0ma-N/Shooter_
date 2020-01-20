@@ -4,9 +4,9 @@ namespace Shooter
 {
     public abstract class BaseController
     {
-        public Inventory Inventory = new Inventory();
-        public UIInterface UIInterface = new UIInterface();
-        
+        //Ссылка на инвентарь здесь затем, что практически все контроллеры управляют тем, что содержится в инвентаре.
+        protected Inventory Inventory = new Inventory();
+        protected UIInterface UIInterface = new UIInterface();
         protected bool IsActive;
 
         public virtual void On()

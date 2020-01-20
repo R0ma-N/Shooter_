@@ -7,7 +7,7 @@ namespace Shooter
     public class Timer
     {
         public float DistTime = 0;
-        private float CurTime = 0;
+        private float _curTime = 0;
         private float _random;
         private bool active;
 
@@ -16,32 +16,32 @@ namespace Shooter
         {
             if (DistTime == 0) 
             {
-                DistTime = CurTime = value;
+                DistTime = _curTime = value;
             }
 
-            if (CurTime > 0)
+            if (_curTime > 0)
             {
-                CurTime -= Time.deltaTime;
+                _curTime -= Time.deltaTime;
                 return false;
             }
             else
             {
-                CurTime = DistTime;
+                _curTime = DistTime;
                 return true;
             }
         }
 
-        public void blink(ref bool val1, float val2)
+        public void Blink(ref bool valueForBlink, float blinkInterval)
         {
-            if (val1)
+            if (valueForBlink)
             {
-                if (TimeIsUp(val2))
-                    val1 = false;
+                if (TimeIsUp(blinkInterval))
+                    valueForBlink = false;
             }
             else
             {
-                if (TimeIsUp(val2))
-                    val1 = true;
+                if (TimeIsUp(blinkInterval))
+                    valueForBlink = true;
             }
         }
 

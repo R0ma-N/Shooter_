@@ -8,26 +8,28 @@ namespace Shooter
     public class Inventory
     {
         public List<Object> inventory;
-        public List<WeaponBase> _weapons;
+        public WeaponBase[] Weapons;
         public FlashLightModel FlashLight;
         public GameObject Player;
 
         public Inventory()
         {
             FlashLight = Object.FindObjectOfType<FlashLightModel>();
-            Player = GameObject.FindGameObjectWithTag("Player");
-            _weapons = Player.GetComponentsInChildren<WeaponBase>().ToList();
-            foreach (WeaponBase weapon in _weapons)
+            Player = GameObject.FindGameObjectWithTag(TagManager.PLAYER);
+            Weapons = Player.GetComponentsInChildren<WeaponBase>();
+            foreach (WeaponBase weapon in Weapons)
             {
                 weapon.ClipsCount = weapon.ClipsMaxCount;
                 weapon.BulletsCount = weapon.BulletsInClip;
             }
         }
 
+        //смысл второго конструктора в том, что первый находит и заряжает всё имеющиеся оружие при старте,
+        //второй же срабатывает при подборе нового и не заряжает уже имеющееся
         public Inventory(bool NewWeapon)
         {
-            Player = GameObject.FindGameObjectWithTag("Player");
-            _weapons = Player.GetComponentsInChildren<WeaponBase>().ToList();
+            Player = GameObject.FindGameObjectWithTag(TagManager.PLAYER);
+            Weapons = Player.GetComponentsInChildren<WeaponBase>();
         }
     }
 }

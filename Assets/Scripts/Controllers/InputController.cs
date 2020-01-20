@@ -8,7 +8,6 @@ namespace Shooter
         private WeaponController _weaponController = new WeaponController();
 
         private KeyCode _activeFlashLight = KeyCode.F;
-        //private KeyCode _fire = KeyCode.Mouse0;
         private KeyCode _cancel = KeyCode.Escape;
 
         public InputController()
