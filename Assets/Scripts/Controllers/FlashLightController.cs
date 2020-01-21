@@ -77,47 +77,42 @@ namespace Shooter
         //   |   +--+  +--+  +--+  +--+  +--+  +--+   |
         //   +----------------------------------------+
         //   
-        //   Батарейка состоит из Canvas, на котором лежит Image с фоном для еще 6-ти Image - прямоугольников. 
-        //   Это полоски зарядки, в коде - массив Devisions(подразделения)
-        //   _flashLight.MaxCharge / 6 - значит поделить значение максимального заряда на 6 подразделений, чтобы
-        //   это максимальное значение можно было свободно менять.
-        //
-        //     далее, в зависимости от уровня заряда, подразделения выключаются, меняют цвет 
-        //     и в конце мограет все, что осталось. 
 
         private void DecreaseCharge()
         {
+            if(_flashLight.CurrentCharge >= _flashLight.MaxCharge)
+            {
+                _batteryUI.Charge100Percents();
+            }
+
             _flashLight.CurrentCharge -= Time.deltaTime;
 
             if (_flashLight.CurrentCharge < _flashLight.MaxCharge - _flashLight.MaxCharge / 6)
             {
-                _batteryUI.Devisions[5].enabled = false;
+                _batteryUI.Charge80Percents();
 
                 if (_flashLight.CurrentCharge < _flashLight.MaxCharge - (_flashLight.MaxCharge / 6) * 2)
                 {
-                    _batteryUI.Devisions[4].enabled = false;
+                    _batteryUI.Charge64Percents();
 
                     if (_flashLight.CurrentCharge < _flashLight.MaxCharge - (_flashLight.MaxCharge / 6) * 3)
                     {
-                        _batteryUI.Devisions[3].enabled = false;
-
-                        for (int i = 0; i < 3; i++)
-                        {
-                            _batteryUI.Devisions[i].color = orange;
-                        }
+                        _batteryUI.Charge50Percents();
 
                         if (_flashLight.CurrentCharge < _flashLight.MaxCharge - (_flashLight.MaxCharge / 6) * 4)
                         {
-                            _batteryUI.Devisions[2].enabled = false;
-                            _flashLight.Light.enabled = _timer.BlinkRandom(0.1f, 0.4f);
+                            _batteryUI.Charge32Percents();
 
                             if (_flashLight.CurrentCharge < _flashLight.MaxCharge - (_flashLight.MaxCharge / 6) * 5)
                             {
-                                _batteryUI.Devisions[1].enabled = false;
-                                _batteryUI.Devisions[0].color = Color.red;
-                                _batteryUI.Canvas.enabled = _batteryUI.Devisions[0].enabled = _batteryUI.IsBlinked;
-                                _timer.Blink(ref _batteryUI.IsBlinked, 0.5f);
+                                _batteryUI.Charge16Percents();
+                                
                                 _flashLight.Light.enabled = _timer.BlinkRandom(0.01f, 0.1f);
+                                
+                                if(_flashLight.CurrentCharge == 0)
+                                {
+                                    Off();
+                                }
                             }
                         }
                     }
@@ -128,35 +123,6 @@ namespace Shooter
         private void IncreaseCharge()
         {
             _flashLight.CurrentCharge += Time.deltaTime;
-            if(_flashLight.CurrentCharge > _flashLight.MaxCharge - (_flashLight.MaxCharge / 6) * 5)
-            {
-                _batteryUI.Devisions[1].enabled = true;
-                _batteryUI.Devisions[0].color = orange;
-
-                if (_flashLight.CurrentCharge > _flashLight.MaxCharge - (_flashLight.MaxCharge / 6) * 4)
-                {
-                    _batteryUI.Devisions[2].enabled = true;
-
-                    if (_flashLight.CurrentCharge > _flashLight.MaxCharge - (_flashLight.MaxCharge / 6) * 3)
-                    {
-                        _batteryUI.Devisions[3].enabled = true;
-                        for (int i = 0; i < 3; i++)
-                        {
-                            _batteryUI.Devisions[i].color = green;
-                        }
-
-                        if (_flashLight.CurrentCharge < _flashLight.MaxCharge - (_flashLight.MaxCharge / 6) * 2)
-                        {
-                            _batteryUI.Devisions[4].enabled = true;
-
-                            if (_flashLight.CurrentCharge < _flashLight.MaxCharge - _flashLight.MaxCharge / 6)
-                            {
-                                _batteryUI.Devisions[5].enabled = true;
-                            }
-                        }
-                    }
-                }
-            }
         }
     }
 }

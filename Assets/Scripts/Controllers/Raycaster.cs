@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Raycaster : MonoBehaviour
 {
-        public Transform target;
+    public Transform target;
+
     void Update()
     {
         //сюда запишется инфо о пересечении луча, если оно будет

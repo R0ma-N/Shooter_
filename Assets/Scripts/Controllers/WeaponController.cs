@@ -15,11 +15,6 @@ namespace Shooter
             _activeWeapon = Inventory.Weapons[0];
             _timer = new Timer();
             WeaponBase.GotNewWeapon += NewWeapon;
-
-            // 1.не понял как можно отписаться от этого события, если оружие можно будет
-            //подобрать в любой момент, т.е. если отписаться, то оружие подобрать будет уже нельзя
-            //
-            // 2.т.к. WeaponBase абстрактный, кроме как через статическое поле к соботию не обратиться
         }
 
         public void OnUpdate()
@@ -98,7 +93,7 @@ namespace Shooter
 
         private void NewWeapon()
         {
-            Inventory = new Inventory(true);
+            Inventory.AddNewWeapon();
             ChangeWeapon(Inventory.Weapons.Length - 1);
             _activeWeapon.ClipsCount = _activeWeapon.ClipsMaxCount;
             _activeWeapon.BulletsCount = _activeWeapon.BulletsInClip;

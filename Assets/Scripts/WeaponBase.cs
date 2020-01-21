@@ -18,7 +18,6 @@ namespace Shooter
         [HideInInspector] public int ClipsCount;
         [HideInInspector] public int BulletsCount;
 
-        //подбор нового оружия
         private void OnCollisionEnter(Collision collision)
         {
             if (collision.gameObject.CompareTag(TagManager.PLAYER))

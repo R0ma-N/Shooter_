@@ -23,11 +23,8 @@ namespace Shooter
             }
         }
 
-        //смысл второго конструктора в том, что первый находит и заряжает всё имеющиеся оружие при старте,
-        //второй же срабатывает при подборе нового и не заряжает уже имеющееся
-        public Inventory(bool NewWeapon)
+        public void AddNewWeapon()
         {
-            Player = GameObject.FindGameObjectWithTag(TagManager.PLAYER);
             Weapons = Player.GetComponentsInChildren<WeaponBase>();
         }
     }
