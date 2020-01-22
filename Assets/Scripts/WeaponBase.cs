@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 namespace Shooter
 {
@@ -9,7 +10,7 @@ namespace Shooter
         public bool IsReady = true;
         public int ClipsMaxCount;
         public int BulletsInClip;
-        public static event System.Action GotNewWeapon;
+        public static UnityEvent GotNewWeapon = new UnityEvent();
 
         [SerializeField] protected Transform _barrel;
         [SerializeField] protected float _force = 999;

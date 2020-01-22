@@ -14,7 +14,7 @@ namespace Shooter
         {
             _activeWeapon = Inventory.Weapons[0];
             _timer = new Timer();
-            WeaponBase.GotNewWeapon += NewWeapon;
+            WeaponBase.GotNewWeapon.AddListener(NewWeapon);
         }
 
         public void OnUpdate()
@@ -39,8 +39,6 @@ namespace Shooter
                 }
             }
 
-            //не понял почему стрельба и перезарядка может быть в WeaponController,
-            //а смена оружия по колесику мыши должна быть обязательно в InputController
             float mv = Input.GetAxis("Mouse ScrollWheel");
             if (mv > 0)
             {
