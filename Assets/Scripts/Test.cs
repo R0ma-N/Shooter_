@@ -7,6 +7,7 @@ public class Raycaster : MonoBehaviour
     public Transform target;
         public Camera _camera;
         RaycastHit hit;
+    bool gotTarget;
     private void Awake()
     {
         _camera = Camera.main;
@@ -27,19 +28,24 @@ public class Raycaster : MonoBehaviour
         if (hit.collider != null)
         {
             //если луч не попал в цель
-            if (hit.collider.gameObject != target.gameObject)
+            if (hit.collider.gameObject == target.gameObject)
             {
-                Debug.Log("Путь к врагу преграждает объект: " + hit.collider.name);
-                if (Input.GetKey(KeyCode.Mouse1))
+                Debug.Log("Попадаю во врага!!!");
+                if (Input.GetKeyDown(KeyCode.Mouse1) && !gotTarget)
                 {
                     target.transform.parent = Camera.main.transform;
+                    gotTarget = true;
+                }
+                else if (Input.GetKeyUp(KeyCode.Mouse1) && gotTarget)
+                {
+                    target.transform.DetachChildren();
                 }
             }
             //если луч попал в цель
-            else
-            {
-                Debug.Log("Попадаю во врага!!!");
-            }
+            //else
+            //{
+            //    Debug.Log("Попадаю во врага!!!");
+            //}
             //просто для наглядности рисуем луч в окне Scene
         }
     }
